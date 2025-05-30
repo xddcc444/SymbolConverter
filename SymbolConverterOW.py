@@ -4,51 +4,50 @@ import sys
 import os
 
 MAX_LENGTH = 30  # Define the max length globally or at the top of your script
-FORBIDDEN_CHARS = set(' .,;:`\'"[]{}()<>!?/\\|@#$%^&*~-_+=')
+FORBIDDEN_CHARS = set(' .,;:`\'"[]{}()<>!?/\\|@#$%^&*~-_+=№')
+bold18 = ('Century Gothic', 18, 'bold')
 bold14 = ('Century Gothic', 14, 'bold')
-bold12 = ('Century Gothic', 12, 'bold')
 btn10 = ('Century Gothic', 10, 'bold')
-symbolbtn10 = ('Arial', 10, 'bold')
+btn12 = ('Century Gothic', 12, 'bold')
+symbolbtn12 = ('Arial', 12, 'bold')
 subtxt10 = ('Century Gothic', 10)
 # Define the special letter mapping
 special_map = {
-    'a': ['Ǎ', 'Ǻ', 'Ǟ', 'Ȁ', 'Ȃ', 'Ǡ', 'Ǽ', 'Ǣ'],
-    'b': ['Ɓ', 'Ƃ', 'Ƅ'],
-    'c': ['Ƈ', 'Ɔ', 'Ċ', 'Ĉ'],
-    'd': 'D',
-    'e': ['Ȅ', 'Ȇ', 'Ĕ', 'Ɛ', 'ǝ'],
+    'a': ['Ǎ', 'Ǻ', 'Ǟ', 'Ȁ', 'Ȃ', 'Ǡ', 'Ą'],
+    'b': ['Ɓ', 'Ƃ', 'Ƅ', 'ƃ', 'ƅ'],
+    'c': ['Ƈ', 'Ɔ', 'Ċ', 'Ĉ', 'Ç'],
+    'd': ['D', 'Đ', 'Ď'],
+    'e': ['Ȅ', 'Ȇ', 'Ĕ', 'Ē', 'Ė', 'Ę', 'Ě', 'È', 'É', 'Ê', 'Ë', 'Ɛ', 'ǝ'],
     'f': 'Ƒ',
-    'g': ['Ǵ', 'Ǧ', 'Ĝ', 'Ġ', 'Ɠ'],
+    'g': ['Ǵ', 'Ǧ', 'Ĝ', 'Ġ', 'Ģ', 'Ɠ'],
     'h': ['Ĥ', 'Ħ', 'ƕ'],
-    'i': ['Ȉ', 'Ȋ', 'Ĭ', 'Ǐ', 'Ɨ', 'Ĩ', 'Ɩ'],
+    'i': ['Ȉ', 'Ȋ', 'Ĭ', 'Ǐ', 'Ɨ', 'Ĩ', 'Į', 'Ì', 'Í', 'Î', 'Ï', 'Ɩ'],
     'j': ['Ĵ', 'ǰ'],
-    'k': ['Ƙ', 'Ǩ', 'ĸ'],
-    'l': 'Ŀ',
+    'k': ['Ƙ', 'Ǩ', 'Ķ', 'ĸ'],
+    'l': ['Ŀ', 'Ļ', 'Ĺ', 'Ľ', 'Ł'],
     'm': 'M',
-    'n': 'Ŋ',
-    'o': ['Ǿ', 'Ȍ', 'Ȏ', 'Ǒ', 'Ŏ', 'Ǫ', 'Ǭ'],
+    'n': ['Ŋ', 'Ň', 'Ņ', 'Ń', 'Ñ', 'Ǹ'],
+    'o': ['Ø', 'Ǿ', 'Ȍ', 'Ő', 'Ȏ', 'Ǒ', 'Ŏ', 'Ō', 'Ö', 'Ò', 'Ó', 'Ô', 'Õ', 'Ǫ', 'Ǭ'],
     'p': 'P',
     'q': 'Q',
-    'r': ['Ȑ', 'Ȓ', 'Ŗ'],
-    's': 'Ŝ',
-    't': 'Ŧ',
-    'u': ['Ŭ', 'Ȕ', 'Ȗ', 'Ǔ', 'Ǖ', 'Ǘ', 'Ǚ', 'Ǜ', 'Ũ'],
+    'r': ['Ȑ', 'Ȓ', 'Ŗ', 'Ŕ', 'Ř'],
+    's': ['Ś', 'Ŝ', 'Š', 'Ş'],
+    't': ['Ŧ', 'Ţ', 'Ť'],
+    'u': ['Ŭ', 'Ȕ', 'Ű', 'Ȗ', 'Ǔ', 'Ǖ', 'Ǘ', 'Ǚ', 'Ǜ', 'Ũ', 'Ū', 'Ů', 'Ų', 'Ù', 'Ú', 'Û', 'Ü'],
     'v': 'Ɣ',
     'w': 'Ŵ',
     'x': 'X',
-    'y': 'Ŷ',
-    'z': 'Z',
+    'y': ['Ŷ', 'Ÿ', 'Ŷ', 'Ý'],
+    'z': ['Ź', 'Ż', 'Ž'],
 
 }
 
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller."""
     try:
         base_path = sys._MEIPASS  # PyInstaller sets this
     except AttributeError:
         base_path = os.path.abspath(".")
-
     return os.path.join(base_path, relative_path)
 
 
@@ -83,7 +82,7 @@ def run_gui():
             result_label.config(text="")
 
             # Show variants label + buttons
-            tk.Label(variants_frame, text=f"Variants of '{input_text}':", font=bold12, bg="lightblue").pack(pady=(0, 5))
+            tk.Label(variants_frame, text=f"Variants of '{input_text}':", font=bold14, bg="lightblue").pack(pady=(0, 5))
 
             btn_frame = tk.Frame(variants_frame, bg="lightblue")
             btn_frame.pack()
@@ -97,7 +96,7 @@ def run_gui():
                     fg="#003366",
                     activebackground="#88bbff",
                     activeforeground="#001122",
-                    font=symbolbtn10,
+                    font=symbolbtn12,
                     relief=tk.RAISED,
                     command=lambda v=variant: insert_variant(v)
                 )
@@ -155,12 +154,12 @@ def run_gui():
     def show_help_window():
         help_win = tk.Toplevel(window)
         help_win.title("Help")
-        help_win.geometry("450x280")
+        help_win.geometry("512x288")
         help_win.configure(bg="lightblue")
         help_win.resizable(False, False)
         help_win.iconbitmap(resource_path("symbolconverter.ico"))
 
-        tk.Label(help_win, text="How to Use", font=bold14, bg="lightblue").pack(pady=(10, 5))
+        tk.Label(help_win, text="How to Use", font=bold18, bg="lightblue").pack(pady=(10, 5))
         tk.Message(
             help_win,
             text="• You can enter up to 30 characters — spaces and most special symbols are not allowed.\n"
@@ -187,7 +186,7 @@ def run_gui():
     window = tk.Tk()
     window.configure(bg="lightblue")
     window.title("Special Letter Converter")
-    window.geometry("800x450")
+    window.geometry("1024x576")
     window.resizable(False, False)
     window.iconbitmap(resource_path("symbolconverter.ico"))
 
@@ -210,7 +209,7 @@ def run_gui():
                             command=show_help_window)
     help_button.pack()
     # === Input ===
-    tk.Label(window, text="Enter text:", font=bold14, bg="lightblue").pack(pady=(10, 0))
+    tk.Label(window, text="Enter text:", font=bold18, bg="lightblue").pack(pady=(10, 0))
     entry_frame = tk.Frame(window, bg='lightgray', padx=5, pady=5)
     entry_frame.pack()
     input_entry = tk.Entry(window,
@@ -223,6 +222,7 @@ def run_gui():
                            validate="key",
                            validatecommand=vcmd)
     input_entry.pack(pady=5)
+    input_entry.bind('<Return>', lambda event: on_transform())
 
     # === Length label ===
     length_label = tk.Label(window, text="Length: 0", font=subtxt10, bg="lightblue")
@@ -231,7 +231,7 @@ def run_gui():
     # === Symbol insert header ===
     symbol_frame = tk.Frame(window)
     symbol_frame.pack(pady=5)
-    tk.Label(symbol_frame, text="Insert symbol:", font=bold14, bg="lightblue").pack(side=tk.LEFT)
+    tk.Label(symbol_frame, text="Insert symbol:", font=bold18, bg="lightblue").pack(side=tk.LEFT)
 
     # === Symbol groups ===
     symbol_groups_frame = tk.Frame(window, bg="lightblue")
@@ -240,7 +240,7 @@ def run_gui():
     def create_symbol_group(parent, title, color, symbols):
         box = tk.Frame(parent, highlightbackground=color, highlightthickness=2, padx=10, pady=10, bg="lightblue")
         box.pack(side=tk.LEFT, padx=10)
-        tk.Label(box, text=title, font=bold12, bg="lightblue").pack(pady=(0, 5))
+        tk.Label(box, text=title, font=bold14, bg="lightblue").pack(pady=(0, 5))
 
         for symbol in symbols:
             btn = tk.Button(
@@ -251,7 +251,7 @@ def run_gui():
                 fg="#003366",
                 activebackground="#88bbff",
                 activeforeground="#001122",
-                font=symbolbtn10,
+                font=symbolbtn12,
                 relief=tk.RAISED,
                 bd=3,
                 command=lambda s=symbol: insert_symbol(s)
@@ -261,7 +261,7 @@ def run_gui():
             btn.bind("<Leave>", on_leave)
 
     create_symbol_group(symbol_groups_frame, "Special", "#3fa34d", ['ǂ', 'ǃ', 'ǀ', 'ǁ', 'Ǯ'])
-    create_symbol_group(symbol_groups_frame, "Double", "#0077cc", ['Ǆ', 'Ǳ', 'Ǉ', 'Ǌ', 'Ĳ'])
+    create_symbol_group(symbol_groups_frame, "Double", "#0077cc", ['Ǆ', 'Ǳ', 'Ǉ', 'Ǌ', 'Ĳ', 'Œ', 'Ǽ', 'Ǣ'])
     create_symbol_group(symbol_groups_frame, "Square", "#cc4444", ['Ƕ', 'Ƿ', 'Ǹ'])
 
     # === Transform button ===
@@ -272,14 +272,14 @@ def run_gui():
         fg="#003366",
         activebackground="#88bbff",
         activeforeground="#001122",
-        font=btn10,
+        font=btn12,
         relief=tk.RAISED,
         command=on_transform)
     transform_button.pack(pady=(0, 25))
     transform_button.bind("<Enter>", on_enter)
     transform_button.bind("<Leave>", on_leave)
     # === Result output ===
-    result_label = tk.Label(window, text="", font=('Arial', 14, 'bold'), fg="#000000", wraplength=420, bg="lightblue")
+    result_label = tk.Label(window, text="", font=('Arial', 20, 'bold'), fg="#000000", wraplength=420, bg="lightblue")
     result_label.pack(pady=(5, 0))
 
     # === Variants frame (for single-letter transformation options) ===
@@ -299,7 +299,7 @@ def run_gui():
         fg="#003366",
         activebackground="#88bbff",
         activeforeground="#001122",
-        font=btn10,
+        font=btn12,
         relief=tk.RAISED,
         command=on_copy)
     copy_button.pack()  # Pack once here
