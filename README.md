@@ -48,7 +48,7 @@ All symbol variants in this tool are valid **Unicode alternatives** of standard 
 ## 📦 Installation
 
 1. Download the latest release `.exe` from the **[Releases](https://github.com/xddcc444/SymbolConverter/releases)** section.
-2. Run `setup.exe` and follow the steps to install the app.
+2. Run `SymbolConverterSetup.exe` and follow the steps to install the app.
 
 ---
 
