@@ -4,7 +4,9 @@
 It lets you transform standard letters into unique symbols, view character variants, and insert them where needed — all while ensuring your final name is **valid for use on Battle.net**.
 
 ![Symbol Convertion Screenshot](convertion.png)
+*Symbol Converter UI showcasing input and output.*
 ![Symbol Variants Available](variants.png)
+*Symbol Converter UI showcasing variants.*
 
 ---
 
