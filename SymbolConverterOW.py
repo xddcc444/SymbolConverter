@@ -195,7 +195,7 @@ def run_gui():
     def show_help_window():
         help_win = tk.Toplevel(window)
         help_win.title("Help")
-        help_win.geometry("512x288")
+        help_win.geometry("640x360")
         help_win.configure(bg="lightblue")
         help_win.resizable(False, False)
         help_win.iconbitmap(resource_path("symbolconverter.ico"))
@@ -205,11 +205,14 @@ def run_gui():
             help_win,
             text="• You can enter up to 30 characters — spaces and most special symbols are not allowed.\n"
                  "• Input cannot start with a number.\n"
+                 "• Capital letters stay as-is — they won’t be converted.\n"
+                 "• Symbols in the 'Double' section take up only 1 character, but look like 2 letters combined.\n"
+                 "• Symbols in the 'Square' section will be shaped as a rectangular box in-game.\n"
                  "• Type a single letter and click 'Transform' to view its symbol variants.\n"
                  "• Click any symbol in the Insert section to place it at your cursor.\n"
                  "• You can continue typing or transforming using inserted symbols.",
             font=("Century Gothic", 11),
-            width=350,
+            width=600,
             bg="lightblue"
         ).pack(pady=(0, 10))
 
