@@ -27,7 +27,7 @@ special_map = {
     'k': ['Ƙ', 'Ǩ', 'Ķ', 'ĸ'],
     'l': ['Ŀ', 'Ļ', 'Ĺ', 'Ľ', 'Ł'],
     'm': 'M',
-    'n': ['Ŋ', 'Ň', 'Ņ', 'Ń', 'Ñ', 'Ǹ'],
+    'n': ['Ŋ', 'Ň', 'Ņ', 'Ń', 'Ñ'],
     'o': ['Ø', 'Ǿ', 'Ȍ', 'Ő', 'Ȏ', 'Ǒ', 'Ŏ', 'Ō', 'Ö', 'Ò', 'Ó', 'Ô', 'Õ', 'Ǫ', 'Ǭ'],
     'p': 'P',
     'q': 'Q',
@@ -151,9 +151,14 @@ def run_gui():
             spacer.pack()
 
             transformed = replace_with_special(input_text)
-            result_label.config(text=transformed)
 
-            copy_button.pack()
+            if transformed:
+                result_label.config(text=transformed)
+                if not copy_button.winfo_ismapped():
+                    copy_button.pack(pady=5)
+            else:
+                result_label.config(text="")  # Or display a message like "Invalid input"
+                copy_button.pack_forget()
 
     def insert_symbol(symbol):
         pos = input_entry.index(tk.INSERT)  # Get current cursor position
@@ -346,7 +351,7 @@ def run_gui():
         font=btn12,
         relief=tk.RAISED,
         command=on_copy)
-    copy_button.pack()  # Pack once here
+    #copy_button.pack()  # Pack once here
     copy_button.bind("<Enter>", on_enter)
     copy_button.bind("<Leave>", on_leave)
 
