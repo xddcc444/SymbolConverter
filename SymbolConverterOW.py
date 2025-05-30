@@ -9,7 +9,8 @@ bold18 = ('Century Gothic', 18, 'bold')
 bold14 = ('Century Gothic', 14, 'bold')
 btn10 = ('Century Gothic', 10, 'bold')
 btn12 = ('Century Gothic', 12, 'bold')
-symbolbtn12 = ('Arial', 12, 'bold')
+symbolbtn14 = ('Arial', 14, 'bold')
+symbolbtn20 = ('Arial', 20, 'bold')
 subtxt10 = ('Century Gothic', 10)
 # Define the special letter mapping
 special_map = {
@@ -81,29 +82,69 @@ def run_gui():
             # Clear transformed string
             result_label.config(text="")
 
-            # Show variants label + buttons
+            # Clear previous widgets
+            for widget in variants_frame.winfo_children():
+                widget.destroy()
+
+            # Show label
             tk.Label(variants_frame, text=f"Variants of '{input_text}':", font=bold14, bg="lightblue").pack(pady=(0, 5))
 
-            btn_frame = tk.Frame(variants_frame, bg="lightblue")
-            btn_frame.pack()
+            variants = special_map[input_text]
+            total = len(variants)
 
-            for variant in special_map[input_text]:
+            # Split dynamically into up to 2 rows
+            if total <= 9:
+                row1 = variants
+                row2 = []
+            else:
+                split = total // 2 + total % 2  # Ensures first row has more if odd number
+                row1 = variants[:split]
+                row2 = variants[split:]
+
+            row1_frame = tk.Frame(variants_frame, bg="lightblue")
+            row1_frame.pack(anchor='center', pady=2)
+
+            for variant in row1:
                 btn = tk.Button(
-                    btn_frame,
+                    row1_frame,
                     text=variant,
                     width=3,
                     bg="#ddeeff",
                     fg="#003366",
                     activebackground="#88bbff",
                     activeforeground="#001122",
-                    font=symbolbtn12,
+                    font=symbolbtn20,
                     relief=tk.RAISED,
                     command=lambda v=variant: insert_variant(v)
                 )
                 btn.pack(side=tk.LEFT, padx=2)
                 btn.bind("<Enter>", on_enter)
                 btn.bind("<Leave>", on_leave)
+
+            # If second row exists, do the same
+            if row2:
+                row2_frame = tk.Frame(variants_frame, bg="lightblue")
+                row2_frame.pack(anchor='center', pady=2)
+
+                for variant in row2:
+                    btn = tk.Button(
+                        row2_frame,
+                        text=variant,
+                        width=3,
+                        bg="#ddeeff",
+                        fg="#003366",
+                        activebackground="#88bbff",
+                        activeforeground="#001122",
+                        font=symbolbtn20,
+                        relief=tk.RAISED,
+                        command=lambda v=variant: insert_variant(v)
+                    )
+                    btn.pack(side=tk.LEFT, padx=2)
+                    btn.bind("<Enter>", on_enter)
+                    btn.bind("<Leave>", on_leave)
+
             copy_button.pack_forget()
+
         else:
             # No variants, show spacer instead
             spacer = tk.Label(variants_frame, text="", height=2, bg="lightblue")
@@ -251,7 +292,7 @@ def run_gui():
                 fg="#003366",
                 activebackground="#88bbff",
                 activeforeground="#001122",
-                font=symbolbtn12,
+                font=symbolbtn14,
                 relief=tk.RAISED,
                 bd=3,
                 command=lambda s=symbol: insert_symbol(s)
@@ -285,8 +326,8 @@ def run_gui():
     # === Variants frame (for single-letter transformation options) ===
     variants_frame = tk.Frame(window, bg="lightblue")
     variants_frame.pack(pady=(0, 5))
-    spacer = tk.Label(variants_frame, text="", height=2, bg="lightblue")
-    spacer.pack()
+    #spacer = tk.Label(variants_frame, text="", height=2, bg="lightblue")
+    #spacer.pack()
 
     # === Copy Output button inside a frame ===
     copy_frame = tk.Frame(window, bg="lightblue")
