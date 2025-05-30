@@ -3,7 +3,8 @@
 **Symbol Converter** is a lightweight desktop app made specifically for creating **stylish BattleTags** that stay within **Blizzard’s naming restrictions**.
 It lets you transform standard letters into unique symbols, view character variants, and insert them where needed — all while ensuring your final name is **valid for use on Battle.net**.
 
-![Screenshot](screenshot.png)
+![Symbol Convertion Screenshot](convertion.png)
+![Symbol Variants Available](variants.png)
 
 ---
 
