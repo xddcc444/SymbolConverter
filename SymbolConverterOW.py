@@ -320,7 +320,7 @@ def run_gui():
     transform_button.bind("<Enter>", on_enter)
     transform_button.bind("<Leave>", on_leave)
     # === Result output ===
-    result_label = tk.Label(window, text="", font=('Arial', 20, 'bold'), fg="#000000", wraplength=420, bg="lightblue")
+    result_label = tk.Label(window, text="", font=('Arial', 20, 'bold'), fg="#000000", wraplength=700, bg="lightblue")
     result_label.pack(pady=(5, 0))
 
     # === Variants frame (for single-letter transformation options) ===
